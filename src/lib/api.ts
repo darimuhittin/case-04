@@ -72,6 +72,11 @@ api.interceptors.response.use(
         return Promise.reject(error);
       }
 
+      // Login endpoint'inden gelen 401 hatası için refresh token yapma
+      if (originalRequest.url === "/users/login") {
+        return Promise.reject(error);
+      }
+
       if (isRefreshing) {
         // Eğer şu an zaten token yenileniyorsa, bu isteği kuyruğa ekle
         return new Promise(function (resolve, reject) {
